@@ -1,0 +1,37 @@
+/* 调整表单布局 */
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.form-row label {
+    width: 200px;
+    margin-right: 1em;
+}
+
+.form-row .readonly-field {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    color: #666;
+}
+
+/* 隐藏默认值显示 */
+.default-value-row {
+    display: none;
+}
+
+/* 调整输入框样式 */
+.form-row input[type="text"],
+.form-row input[type="number"] {
+    width: 50%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+/* 只读字段样式 */
+.readonly-field {
+    background-color: #f5f5f5 !important;
+    cursor: not-allowed;
+} 

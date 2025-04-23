@@ -1,0 +1,96 @@
+#result_list .changed {
+    background-color: #ffc;
+}
+#changelist table thead th .text {
+    padding: 2px 5px;
+}
+#changelist table tbody td:first-child {
+    text-align: left;
+}
+#changelist-form ul.errorlist {
+    margin: 0 !important;
+}
+.help {
+    font-weight: normal !important;
+}
+#results {
+    overflow-x: auto;
+}
+.item-anchor {
+    visibility: hidden;
+    margin-left: .1em;
+} 
+.item-name {
+    white-space: nowrap;
+}
+.item-name:hover .item-anchor {
+    visibility: visible;
+}
+.sticky-footer {
+    position: sticky;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background: var(--body-bg);
+    border-top: 1px solid var(--hairline-color);
+    padding: 1em;
+    margin-top: 2em;
+}
+
+/* 配置项样式 */
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+    padding: 1em;
+    border-bottom: 1px solid var(--hairline-color);
+}
+
+.form-row label {
+    width: 250px;
+    margin-right: 2em;
+    font-weight: bold;
+    color: var(--body-fg);
+}
+
+.form-row input[type="text"],
+.form-row input[type="number"] {
+    width: 50%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: var(--body-bg);
+    color: var(--body-fg);
+}
+
+/* 只读字段样式 */
+.readonly-field {
+    background-color: var(--darkened-bg) !important;
+    border: 1px solid var(--border-color);
+    color: var(--body-quiet-color);
+    padding: 8px;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* 隐藏默认值显示 */
+.default-value-row {
+    display: none;
+}
+
+/* 分组样式 */
+.config-group {
+    margin-bottom: 2em;
+    padding: 1em;
+    background: var(--body-bg);
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.config-group h2 {
+    margin-bottom: 1em;
+    color: var(--body-fg);
+    border-bottom: 2px solid var(--hairline-color);
+    padding-bottom: 0.5em;
+}

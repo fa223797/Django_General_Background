@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>所有API文档</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        .endpoint {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .endpoint h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #2c3e50;
+        }
+        
+        .endpoint p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+        
+        .endpoint pre {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        
+        .endpoint code {
+            font-size: 13px;
+        }
+        
+        .method {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            color: white;
+            font-weight: bold;
+            margin-right: 8px;
+            font-size: 12px;
+        }
+        .post { background-color: #49cc90; }
+        .get { background-color: #61affe; }
+        pre {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: monospace;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f5f5f5;
+        }
+        
+        /* 添加模型分类样式 */
+        .model-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+        
+        .model-title {
+            color: #2c3e50;
+            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* 添加导航样式 */
+        .nav-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .nav-item {
+            margin: 5px 0;
+        }
+        
+        .nav-link {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+        
+        .nav-link:hover {
+            color: #3498db;
+        }
+
+        .model-category {
+            color: #2c3e50;
+            margin-top: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .model-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .model-list li {
+            margin: 15px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .model-list code {
+            background: #e9ecef;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            margin-left: 8px;
+        }
+        
+        .tag.free {
+            background: #28a745;
+            color: white;
+        }
+        
+        .model-list p {
+            margin: 5px 0 0 0;
+            color: #666;
+        }
+
+        .table-container {
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        #modelTable {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            table-layout: fixed; /* 添加固定布局 */
+        }
+
+        #modelTable th,
+        #modelTable td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            overflow: hidden; /* 处理内容溢出 */
+            text-overflow: ellipsis; /* 显示省略号 */
+            white-space: nowrap; /* 防止内容换行 */
+        }
+
+        #modelTable th {
+            background: #f5f5f5;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .edit-btn,
+        .delete-btn {
+            padding: 4px 8px;
+            margin: 0 2px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            display: inline-block;
+        }
+
+        .edit-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        .dialog {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .dialog-content {
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 500px;
+        }
+
+        .form-group {
+            margin: 15px 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .dialog-buttons {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .dialog-buttons button {
+            padding: 8px 16px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .add-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        /* 添加文件上传接口的样式 */
+        .file-upload-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+
+        .file-upload-title {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        /* 操作按钮容器 */
+        .button-container {
+            display: flex;
+            justify-content: flex-start;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 模型列表移到最上面 -->
+        <div class="model-section">
+            <h2 class="model-title">模型列表</h2>
+            <div class="button-container">
+                <button class="add-btn" onclick="showAddDialog()">添加模型</button>
+            </div>
+            
+            <div class="table-container">
+                <table id="modelTable">
+                    <thead>
+                        <tr>
+                            <th>模型标识</th>
+                            <th>模型名称</th>
+                            <th>类型</th>
+                            <th>描述</th>
+                            <th>费用</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for model in models %}
+                        <tr data-id="{{ model.id }}">
+                            <td>{{ model.model }}</td>
+                            <td>{{ model.name }}</td>
+                            <td>{{ model.get_type_display }}</td>
+                            <td>{{ model.context }}</td>
+                            <td>{{ model.cost }}</td>
+                            <td>
+                                <div class="button-container">
+                                    <button class="edit-btn" onclick="editModel('{{ model.id }}')">修改</button>
+                                    <button class="delete-btn" onclick="deleteModel('{{ model.id }}')">删除</button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 在模型列表部分之后添加通用接口说明 -->
+        <div class="model-section">
+            <h2 class="model-title" id="common-api">通用接口</h2>
+            <div class="endpoint">
+                <h3>文件上传接口</h3>
+                <span class="method post">POST</span>
+                <code>/upload/</code>
+                <p>用于上传文件，支持通过API或网页上传，文件信息将同步到数据库。</p>
+
+                <h4>请求参数</h4>
+                <table>
+                    <tr>
+                        <th>参数名</th>
+                        <th>类型</th>
+                        <th>必选</th>
+                        <th>描述</th>
+                    </tr>
+                    <tr>
+                        <td>file</td>
+                        <td>file</td>
+                        <td>是</td>
+                        <td>要上传的文件</td>
+                    </tr>
+                    <tr>
+                        <td>user_id</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>用户ID（通过API上传时使用）</td>
+                    </tr>
+                    <tr>
+                        <td>username</td>
+                        <td>string</td>
+                        <td>否</td>
+                        <td>用户名（通过API上传时使用）</td>
+                    </tr>
+                </table>
+
+                <h4>功能说明</h4>
+                <ul>
+                    <li>支持通过API上传文件，需提供<code>user_id</code>或<code>username</code></li>
+                    <li>支持通过网页上传文件，使用当前登录用户</li>
+                    <li>自动识别文件类型（图片、音频、视频、文档等）</li>
+                    <li>自动填充文件名、文件大小、MIME类型等信息</li>
+                </ul>
+
+                <h4>请求示例 - API上传</h4>
+                <pre><code>POST /upload/
+Content-Type: multipart/form-data
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="test.mp4"
+Content-Type: video/mp4
+
+[文件二进制数据]
+--boundary
+Content-Disposition: form-data; name="username"
+
+yindong_test
+--boundary--</code></pre>
+
+                <h4>响应示例</h4>
+                <pre><code>{
+    "id": 1,
+    "file_name": "test.mp4",
+    "file_type": "video",
+    "file_size": 1024000,
+    "mime_type": "video/mp4",
+    "upload_time": "2024-01-01T12:00:00Z",
+    "file_url": "/media/uploads/2024/01/01/test.mp4",
+    "uploader_id": 1
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- 添加新的模块分类 -->
+        <h1>AI API文档</h1>
+        
+        <!-- 导航栏 -->
+        <div class="nav-container">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#glm" class="nav-link">智谱GLM系列</a></li>
+                <li class="nav-item"><a href="#qwen" class="nav-link">通义千问系列</a></li>
+                <li class="nav-item"><a href="#coze" class="nav-link">COZE系列</a></li>
+                <li class="nav-item"><a href="#common-api" class="nav-link">通用接口</a></li>
+            </ul>
+        </div>
+
+        <!-- 智谱GLM系列 -->
+        <div id="glm" class="model-section">
+            <h2 class="model-title">智谱GLM系列</h2>
+            
+            <div class="endpoint">
+                <h3>智谱AI文本对话</h3>
+                <span class="method post">POST</span>
+                <code>/GLM-4/</code>
+                <p>请求参数：</p>
+                <pre><code>data: {
+  "question": "问题内容", // 必选，用户提问
+  "model": "glm-4-flash" // 可选，默认为glm-4-flash
+}</code></pre>
+            </div>
+
+            <div class="endpoint">
+                <h3>智谱AI图片理解</h3>
+                <span class="method post">POST</span>
+                <code>/GLM-4V/</code>
+                <p>请求参数：</p>
+                <pre><code>data: {
+  "messages": [{ // 必选
+    "content": [
+      {"type":"image_url", "image_url": "图片base64"}, // 必选
+      {"type":"text", "text": "问题描述"} // 必选
+    ]
+  }],
+  "model": "glm-4v-flash" // 可选，默认为glm-4v-flash
+}</code></pre>
+            </div>
+
+            <div class="endpoint">
+                <h3>智谱AI文生图</h3>
+                <span class="method post">POST</span>
+                <code>/GLM-Cog/</code>
+                <p>请求参数：</p>
+                <pre><code>data: {
+  "model": "cogview-3-flash", // 可选，默认为cogview-3-flash
+  "prompt": "图像描述", // 必选
+  "size": "1024x1024" // 可选，默认为1024x1024
+}</code></pre>
+            </div>
+
+            <div class="endpoint">
+                <h3>智谱AI文生视频</h3>
+                <span class="method post">POST</span>
+                <code>/GLM-CogVideo/</code>
+                <p>请求参数：</p>
+                <pre><code>data: {
+  "model": "cogvideox-flash", // 可选，默认为cogvideox-flash
+  "prompt": "视频描述", // 必选
+  "image_url": "图片URL", // 可选
+  "quality": "quality", // 可选
+  "with_audio": true, // 可选，默认为false
+  "size": "720x480", // 可选，默认为720x480
+  "fps": 30 // 可选，默认为30
+}</code></pre>
+            </div>
+
+            <div class="endpoint">
+                <h3>智谱AI语音对话</h3>
+                <span class="method post">POST</span>
+                <code>/GLM-4-Voice/</code>
+                <p>请求参数：</p>
+                <pre><code>data: {
+  "model": "glm-4-voice", // 可选，默认为glm-4-voice
+  "messages": [{ // 必选
+    "role": "user",
+    "content": [
+      {"type": "text", "text": "对话内容"}, // 可选
+      {"type": "input_audio", "input_audio": {"data": "音频数据", "format": "wav"}} // 可选
+    ]
+  }],
+  "temperature": 0.8, // 可选，默认为0.8
+  "top_p": 0.6, // 可选，默认为0.6
+  "max_tokens": 1024, // 可选，默认为1024
+  "do_sample": true, // 可选，默认为true
+  "stream": false // 可选，默认为false
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- 通义千问系列 --> 
+        <div id="qwen" class="model-section">
+            <h2 class="model-title">通义千问系列</h2>
+            
+            <div class="endpoint">
+                <h3>通义千问单轮对话</h3>
+                <span class="method post">POST</span>
+                <code>/QwenChat/</code>
+                <p>请求参数：</p>
+                <pre><code>data: {
+  "content": "对话内容", // 必选
+  "model": "qwen2.5-1.5b-instruct" // 可选，默认为qwen2.5-1.5b-instruct
+}</code></pre>
+            </div>
+
+            <div class="endpoint">
+                <h3>通义千问长文本对话</h3>
+                <span class="method post">POST</span>
+                <code>/QwenChatFile/</code>
+                <p>请求参数：</p>
+                <pre><code>data: {
+  "file": "文件数据", // 必选
+  "text": "问题描述" // 必选
+}</code></pre>
+            </div>
+
+            <div class="endpoint">
+                <h3>通义千问多轮对话</h3>
+                <span class="method post">POST</span>
+                <code>/QwenChatToke/</code>
+                <p>请求参数：</p>
+                <pre><code>data: {
+  "content": "对话内容", // 必选
+  "model": "qwen2.5-1.5b-instruct" // 可选，默认为qwen2.5-1.5b-instruct
+}</code></pre>
+            </div>
+
+            <div class="endpoint">
+                <h3>通义千问图像识别</h3>
+                <span class="method post">POST</span>
+                <code>/QwenOCR/</code>
+                <p>请求参数：</p>
+                <pre><code>data: {
+  "file": "图片文件", // 必选
+  "question": "问题描述" // 可选，默认为"提取所有图中文字"
+}</code></pre>
+            </div>
+
+            <div class="endpoint">
+                <h3>通义千问多模态对话</h3>
+                <span class="method post">POST</span>
+                <code>/Qwenomni/</code>
+                <p>请求参数：</p>
+                <pre><code>data: {
+  "type": "text/image/audio/video", // 必选，指定内容类型
+  "text": "文本内容", // 可选，对话内容或问题描述
+  "file": "文件数据", // 当type不为text时必选，上传的媒体文件
+  "url": "媒体文件URL", // 可选，媒体文件URL，与file二选一
+  "voice": "语音合成音色" // 可选，语音合成的音色
+}</code></pre>
+            </div>
+
+            <div class="endpoint">
+                <h3>通义听悟音频理解</h3>
+                <span class="method post">POST</span>
+                <code>/QwenAudio/</code>
+                <p>请求参数：</p>
+                <pre><code>data: {
+  "file": "音频文件", // 必选
+  "model": "qwen-audio-turbo-latest" // 可选，默认为qwen-audio-turbo-latest
+}</code></pre>
+            </div>
+            
+            <div class="endpoint">
+                <h3>通义千问视觉理解</h3>
+                <span class="method post">POST</span>
+                <code>/qwen-vl/</code>
+                <p>请求参数：</p>
+                <pre><code>data: {
+  "model": "qwen-vl-max-latest", // 必选，模型名称
+  "text": "关于图片的问题或描述", // 必选
+  "file": "图片文件", // 条件必选(与url二选一)
+  "url": "图片URL", // 条件必选(与file二选一)
+  "high_resolution": false, // 可选，是否启用高分辨率处理
+  "use_openai": false // 可选，是否使用OpenAI兼容接口
+}</code></pre>
+            </div>
+        </div>
+        
+        <!-- COZE系列 -->
+        <div id="coze" class="model-section">
+            <h2 class="model-title">COZE系列</h2>
+            
+            <div class="endpoint">
+                <h3>COZE对话接口</h3>
+                <span class="method post">POST</span>
+                <code>/CozeChat/</code>
+                <p>请求参数：</p>
+                <pre><code>data: {
+  "question": "用户问题", // 必选
+  "api_token": "COZE API令牌", // 必选，每30天更新一次
+  "bot_id": "智能体ID", // 必选
+  "user_id": "用户ID" // 必选
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- 情感测试应用 -->
+        <div class="model-section">
+            <h2 class="model-title">情感测试应用 (emo_test)</h2>
+            <div class="endpoint-list">
+                <div class="endpoint">
+                    <h3>获取抑郁测试题目</h3>
+                    <span class="method get">GET</span>
+                    <code>/api/depression/</code>
+                    <p>获取测试问卷</p>
+                    <h4>响应示例</h4>
+                    <pre><code>{
+    "test_id": "测试ID",
+    "name": "Beck抑郁量表测试",
+    "code": "0001",
+    "description": "测试说明...",
+    "questions": [...],
+    "instructions": {
+        "title": "Beck抑郁量表测试",
+        "instructions": "测试说明",
+        "scoring": "评分说明",
+        "welcome_message": "欢迎语"
+    }
+}</code></pre>
+                </div>
+
+                <div class="endpoint">
+                    <h3>提交测试答案并获取AI分析</h3>
+                    <span class="method post">POST</span>
+                    <code>/api/depression/</code>
+                    <p>请求参数：</p>
+                    <pre><code>data: {
+    "test_id": "测试ID", // 必选
+    "user_identifier": "用户标识", // 必选
+    "answers": [ // 必选
+        {"question": 1, "score": 2},
+        {"question": 2, "score": 1},
+        ...
+    ]
+}</code></pre>
+                    <h4>响应示例</h4>
+                    <pre><code>{
+    "success": true,
+    "test_name": "Beck抑郁量表",
+    "total_score": 15,
+    "result": "轻度抑郁",
+    "explanation": "结果解释",
+    "suggestion": "建议",
+    "ai_report": "AI分析报告",
+    "cautions": ["注意事项1", "注意事项2"],
+    "test_time": "测试时间",
+    "closing_message": "结束语"
+}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 微信小程序应用 -->
+        <div class="model-section">
+            <h2 class="model-title">微信小程序应用 (wechat_app)</h2>
+            <div class="endpoint-list">
+                <div class="endpoint">
+                    <h3>获取页面配置</h3>
+                    <span class="method get">GET</span>
+                    <code>/api/page-config/</code>
+                </div>
+
+                <div class="endpoint">
+                    <h3>微信登录</h3>
+                    <span class="method post">POST</span>
+                    <code>/api/login/</code>
+                    <p>请求参数：</p>
+                    <pre><code>data: {
+  "code": "wx.login获取的code" // 必选
+}</code></pre>
+                </div>
+
+                <div class="endpoint">
+                    <h3>获取资源配置</h3>
+                    <span class="method get">GET</span>
+                    <code>/api/resources/</code>
+                </div>
+
+                <div class="endpoint">
+                    <h3>获取公告信息</h3>
+                    <span class="method get">GET</span>
+                    <code>/api/announcements/</code>
+                </div>
+
+                <!-- 页面配置相关 -->
+                <div class="endpoint">
+                    <h3>设置首页</h3>
+                    <span class="method post">POST</span>
+                    <code>/api/pages/set-homepage/</code>
+                    <p>请求参数：</p>
+                    <pre><code>data: {
+  "page_id": "页面ID" // 必选
+}</code></pre>
+                </div>
+
+                <div class="endpoint">
+                    <h3>获取页面排序</h3>
+                    <span class="method get">GET</span>
+                    <code>/api/pages/order/</code>
+                </div>
+
+                <div class="endpoint">
+                    <h3>更新页面排序</h3>
+                    <span class="method post">POST</span>
+                    <code>/api/pages/order/</code>
+                    <p>请求参数：</p>
+                    <pre><code>data: {
+  "page_orders": [ // 必选
+    {"id": 1, "order": 0},
+    {"id": 2, "order": 1}
+  ]
+}</code></pre>
+                </div>
+
+                <!-- 支付相关 -->
+                <div class="endpoint">
+                    <h3>发起支付</h3>
+                    <span class="method post">POST</span>
+                    <code>/api/pay/</code>
+                    <p>请求参数：</p>
+                    <pre><code>data: {
+  "openid": "用户openid", // 必选
+  "total_fee": "支付金额" // 必选
+}</code></pre>
+                </div>
+
+                <div class="endpoint">
+                    <h3>支付结果通知</h3>
+                    <span class="method post">POST</span>
+                    <code>/api/pay/notify/</code>
+                </div>
+
+                <div class="endpoint">
+                    <h3>查询支付状态</h3>
+                    <span class="method post">POST</span>
+                    <code>/api/pay/query/</code>
+                    <p>请求参数：</p>
+                    <pre><code>data: {
+  "out_trade_no": "商户订单号" // 必选
+}</code></pre>
+                </div>
+
+                <!-- 用户信息 -->
+                <div class="endpoint">
+                    <h3>获取用户信息</h3>
+                    <span class="method get">GET</span>
+                    <code>/api/user/info/</code>
+                    <p>请求参数：</p>
+                    <pre><code>params: {
+  "openid": "用户openid" // 必选
+}</code></pre>
+                    <h4>响应示例</h4>
+                    <pre><code>{
+  "nickname": "用户昵称",
+  "avatar": "头像URL",
+  "level": 1,
+  "points": 0
+}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 数据表说明 -->
+        <div class="model-section">
+            <h2 class="model-title">数据表说明</h2>
+            <table>
+                <tr>
+                    <th>应用</th>
+                    <th>表名</th>
+                    <th>用途</th>
+                </tr>
+                <!-- ai_app -->
+                <tr>
+                    <td rowspan="4">ai_app</td>
+                    <td>ModelInfo</td>
+                    <td>AI模型基本信息</td>
+                </tr>
+                <tr>
+                    <td>CustomUser</td>
+                    <td>后台管理员账户</td>
+                </tr>
+                <tr>
+                    <td>UserConversation</td>
+                    <td>用户对话记录</td>
+                </tr>
+                <tr>
+                    <td>UploadedFile</td>
+                    <td>多媒体资料管理</td>
+                </tr>
+                <!-- emo_test -->
+                <tr>
+                    <td rowspan="3">emo_test</td>
+                    <td>EmoTest</td>
+                    <td>心理评估问卷模板</td>
+                </tr>
+                <tr>
+                    <td>UserTestRecord</td>
+                    <td>用户测试记录</td>
+                </tr>
+                <tr>
+                    <td>UserAnswer</td>
+                    <td>用户答题记录</td>
+                </tr>
+                <!-- wechat_app -->
+                <tr>
+                    <td rowspan="5">wechat_app</td>
+                    <td>WechatPayment</td>
+                    <td>微信支付记录</td>
+                </tr>
+                <tr>
+                    <td>AppResource</td>
+                    <td>小程序资源配置</td>
+                </tr>
+                <tr>
+                    <td>WechatPageConfig</td>
+                    <td>小程序页面配置</td>
+                </tr>
+                <tr>
+                    <td>PageOrder</td>
+                    <td>页面排序配置</td>
+                </tr>
+                <tr>
+                    <td>UserConfig</td>
+                    <td>用户个性化配置</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- 添加模型的对话框 -->
+    <div id="addDialog" class="dialog">
+        <div class="dialog-content">
+            <h3>添加新模型</h3>
+            <form id="addForm">
+                <div class="form-group">
+                    <label>模型标识:</label>
+                    <input type="text" id="newModelIdentifier" required>
+                </div>
+                <div class="form-group">
+                    <label>模型名称:</label>
+                    <input type="text" id="newModelName" required>
+                </div>
+                <div class="form-group">
+                    <label>类型:</label>
+                    <select id="newModelType">
+                        <option value="chat">大语言模型</option>
+                        <option value="vision">多模态模型</option>
+                        <option value="function">功能模型</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>描述:</label>
+                    <textarea id="newModelContext" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>费用:</label>
+                    <input type="text" id="newModelCost" required>
+                </div>
+                <div class="dialog-buttons">
+                    <button type="submit">保存</button>
+                    <button type="button" onclick="closeDialog('addDialog')">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 修改模型的对话框 -->
+    <div id="editDialog" class="dialog">
+        <div class="dialog-content">
+            <h3>修改模型信息</h3>
+            <form id="editForm">
+                <input type="hidden" id="modelId">
+                <div class="form-group">
+                    <label>模型标识:</label>
+                    <input type="text" id="modelIdentifier" required>
+                </div>
+                <div class="form-group">
+                    <label>模型名称:</label>
+                    <input type="text" id="modelName" required>
+                </div>
+                <div class="form-group">
+                    <label>类型:</label>
+                    <select id="modelType">
+                        <option value="chat">大语言模型</option>
+                        <option value="vision">多模态模型</option>
+                        <option value="function">功能模型</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>描述:</label>
+                    <textarea id="modelContext" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>费用:</label>
+                    <input type="text" id="modelCost" required>
+                </div>
+                <div class="dialog-buttons">
+                    <button type="submit">保存</button>
+                    <button type="button" onclick="closeDialog('editDialog')">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        function showAddDialog() {
+            document.getElementById('addDialog').style.display = 'block';
+        }
+
+        function closeDialog(dialogId) {
+            document.getElementById(dialogId).style.display = 'none';
+        }
+
+        function editModel(id) {
+            // 获取当前行数据
+            const row = document.querySelector(`tr[data-id="${id}"]`);
+            const cells = row.cells;
+            
+            // 填充表单
+            document.getElementById('modelId').value = id;
+            document.getElementById('modelIdentifier').value = cells[0].textContent;
+            document.getElementById('modelName').value = cells[1].textContent;
+            document.getElementById('modelType').value = cells[2].getAttribute('data-value') || 'chat';
+            document.getElementById('modelContext').value = cells[3].textContent;
+            document.getElementById('modelCost').value = cells[4].textContent;
+            
+            // 显示对话框
+            document.getElementById('editDialog').style.display = 'block';
+        }
+
+        function deleteModel(id) {
+            if (confirm('确定要删除这个模型吗？')) {
+                fetch(`/api/models/${id}/`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken')
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        const row = document.querySelector(`tr[data-id="${id}"]`);
+                        row.remove();
+                    } else {
+                        alert('删除失败，请重试');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('删除失败，请重试');
+                });
+            }
+        }
+
+        document.getElementById('editForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const id = document.getElementById('modelId').value;
+            const data = {
+                model: document.getElementById('modelIdentifier').value,
+                name: document.getElementById('modelName').value,
+                type: document.getElementById('modelType').value,
+                context: document.getElementById('modelContext').value,
+                cost: document.getElementById('modelCost').value
+            };
+            
+            fetch(`/api/models/${id}/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 更新表格中的数据
+                const row = document.querySelector(`tr[data-id="${id}"]`);
+                const cells = row.cells;
+                cells[0].textContent = data.model;
+                cells[1].textContent = data.name;
+                cells[2].textContent = data.type_display;
+                cells[3].textContent = data.context;
+                cells[4].textContent = data.cost;
+                
+                closeDialog('editDialog');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('保存失败，请重试');
+            });
+        });
+
+        // 添加新模型
+        document.getElementById('addForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const data = {
+                model: document.getElementById('newModelIdentifier').value,
+                name: document.getElementById('newModelName').value,
+                type: document.getElementById('newModelType').value,
+                context: document.getElementById('newModelContext').value,
+                cost: document.getElementById('newModelCost').value
+            };
+            
+            fetch('/api/models/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 添加新行到表格
+                const tbody = document.querySelector('#modelTable tbody');
+                const tr = document.createElement('tr');
+                tr.dataset.id = data.id;
+                tr.innerHTML = `
+                    <td>${data.model}</td>
+                    <td>${data.name}</td>
+                    <td>${data.type_display}</td>
+                    <td>${data.context}</td>
+                    <td>${data.cost}</td>
+                    <td>
+                        <div class="button-container">
+                            <button class="edit-btn" onclick="editModel('${data.id}')">修改</button>
+                            <button class="delete-btn" onclick="deleteModel('${data.id}')">删除</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+                
+                closeDialog('addDialog');
+                document.getElementById('addForm').reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('添加失败，请重试');
+            });
+        });
+
+        // 获取CSRF Token的辅助函数
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+</body>
+</html>
