@@ -1,10 +1,13 @@
-# 项目目录
+![微信截图_20250423102046](https://github.com/user-attachments/assets/a501fc9e-bbc9-4fbe-9bb8-ee0ef329152d)# 项目目录
 此项目是后台的页面，首先需要安装requirements.txt的环境，然后修改settings.py文件，最后运行项目。具体参考下面步骤，下面步骤是我一步一步一步步的记录的，所以可以参考。
 ai_app：是各大平台接口的内容，其中接口内容都卸载了views.py里面，所以需要自己删改，url.py是项目路由也是对外接口内容，admin.py和models.py是后台管理页面的内容
 
 config：是项目配置文件，包括settings.py、urls.py、wsgi.py、asgi.py
-emo_api:是关于心里评估量表的后台内容，其中views.py里面是各种量表的算法
+emo_api：是关于心里评估量表的后台内容，其中views.py里面是各种量表的算法
 wechat_app：是微信小程序相关的内容，主要就是前台的小程序基本就是个页面，后台来计算所有的东西，包括聊天，调用各大接口，还有心理评估量表的页面
+![微信截图_20250423102012](https://github.com/user-attachments/assets/b4d1d8b1-9e0e-4621-8d17-9e420d16d915)
+![微信截图_20250423102046](https://github.com/user-attachments/assets/a020c505-5a0f-4917-9a80-8128e1805d2b)
+![微信截图_20250423102102](https://github.com/user-attachments/assets/35dad721-40bc-49b9-95da-02b4fdf43b09)
 
 
 # ========== 0. 项目目录 ==========
